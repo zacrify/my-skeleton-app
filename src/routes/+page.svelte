@@ -26,7 +26,7 @@
 		fetch(
 			`https://lforms-fhir.nlm.nih.gov/baseR4/Patient?_count=10&_offset=${page * 10}${searchParam}`
 		)
-			// fetch('https://lforms-fhir.nlm.nih.gov/baseR4/Patient?active=false&_total=accurate&_count=10')
+			// fetch(`https://lforms-fhir.nlm.nih.gov/baseR4/Patient?active=false&_total=accurate&_count=10&_offset=${page * 10}&name=hi`)
 			.then((response) => response.json())
 			.then((data) => {
 				console.log(data);
@@ -148,12 +148,12 @@
 					{#if $patientsInfo.length !== 0}
 						{#each $patientsInfo as patient}
 							<ContactCard
-								patient_id={patient.id}
-								givenName={patient.givenName}
-								familyName={patient.familyName}
-								gender={patient.gender}
-								dob={patient.birthDate}
-								phoneNumber={patient.phoneNumbers[0].value}
+								patient_id={patient?.id}
+								givenName={patient?.givenName}
+								familyName={patient?.familyName}
+								gender={patient?.gender}
+								dob={patient?.birthDate}
+								phoneNumber={patient?.phoneNumbers[0]?.value}
 								on:editpatient={updatePatient}
 								on:deletepatient={() => {
 									deleteHandler(patient);
