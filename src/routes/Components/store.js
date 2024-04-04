@@ -19,15 +19,12 @@ export function refreshOn() {
 export function refreshOff() {
   refreshFlag.set(false);
 }
-
+let phoneNumbers = [];
 export const patientsInfo = derived(apiData, ($apiData) => {
   if ($apiData.entry) {
     return $apiData.entry.map(entry => {
       const patient = entry.resource;
-      const phoneNumbers = patient.telecom
-        ? patient.telecom.filter(contact => contact.system === 'phone')
-        : [{value:'no phone number'}];
- 
+      const phoneNumbers = patient.telecom?.filter(contact => contact.system === 'phone').length>0 ? patient.telecom.filter(contact => contact.system === 'phone') : [{value:'no phone number'}];
       return {
         id: patient.id,
         givenName: patient.name[0].given[0] || '',
